@@ -70,44 +70,44 @@ class invoice:
             return "get_yzm_color_error"
 
     def num_error(self):
+        judging={"error":"none"}
         if not self.browser.find_element_by_id("fpdmjy").text==" ":
-            return True
-        else :
-            return False
+            judging["error"]="fpdm errors"
+        elif not self.browser.find_element_by_id("kprqjy").text==" ":
+            judging["error"]="kprq errors"
+        return judging
         #hm_error=self.browser.find_element_by_id("fphmjy").text
         #dm_error=self.browser.find_element_by_id("fpdmjy").text
     def main(self,jsons):
         #执行查验前的全部操作
         try:
-            try:
-                #正常进入不会执行，出错递归时执行
-                self.browser.switch_to_window(jsons['handle'])
-            except:
-                pass
-                fpdm=(jsons['fp_dm'])
-                fphm=(jsons['fp_hm'])
-                kprq=(jsons['kp_rq'])
-                kjje=(jsons['jy'][-6:])
-                self.fill_dm(fpdm)
-                self.fill_hm(fphm)
-                self.fill_kp(kprq)
-                self.fill_jy(kjje)
-                if self.num_error():
-                    return {"error":"fpdm errors"}
-                else:
-                    link=self.pic()
-                    #句柄丢失时导致，没有填入信息，验证码链接为"get_yzm_error"
-                    if(link=='get_yzm_error'):
-                        jsons['handle']=self.browser.current_window_handle
-                        self.main(jsons)
-                    else:
-                        color=self.color_yz()
-                        dict_perior={}
-                        dict_perior['verity_code_link']=link
-                        dict_perior['verity_code_word']=color
-                        return dict_perior
+            #正常进入不会执行，出错递归时执行
+            self.browser.switch_to_window(jsons['handle'])
         except:
-            return {"error":"main errors"}
+            pass
+            fpdm=(jsons['fp_dm'])
+            fphm=(jsons['fp_hm'])
+            kprq=(jsons['kp_rq'])
+            kjje=(jsons['jy'][-6:])
+            self.fill_dm(fpdm)
+            self.fill_hm(fphm)
+            self.fill_kp(kprq)
+            self.fill_jy(kjje)
+            probable_error=self.num_error()
+            if probable_error["error"]!="none":
+                return probable_error
+            else:
+                link=self.pic()
+                #句柄丢失时导致，没有填入信息，验证码链接为"get_yzm_error"
+                if(link=='get_yzm_error'):
+                    jsons['handle']=self.browser.current_window_handle
+                    self.main(jsons)
+                else:
+                    color=self.color_yz()
+                    dict_perior={}
+                    dict_perior['verity_code_link']=link
+                    dict_perior['verity_code_word']=color
+                    return dict_perior
 
     def wrong_return (self):
         #取回错误提示
