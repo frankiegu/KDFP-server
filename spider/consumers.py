@@ -123,18 +123,18 @@ class ChatConsumer(WebsocketConsumer):
             result_list = []
             result_dict = All_invoices_info_dict.copy()
             if All_invoices_info_dict['pocket']:
-                if jsons['date'] == 0:
-                    for info in All_invoices_info_dict['pocket']:
-                        if info['state']==1:
-                            info.pop("data")
-                        result_list.append(kindsof(info))  
-                else:
-                    result_dict['pocket'] = result_list
-                    for info in All_invoices_info_dict['pocket']:
-                        if (info['kp_rq'][:6]) == (jsons['date'][:4]+jsons['date'][5:7]):
-                            if info['state']==1:
-                                info.pop("data")
-                            result_list.append(kindsof(info))
+                #if jsons['date'] == 0:
+                for info in All_invoices_info_dict['pocket']:
+                    if info['state']==1:
+                        info.pop("data")
+                    result_list.append(kindsof(info))  
+                # else:
+                #     result_dict['pocket'] = result_list
+                #     for info in All_invoices_info_dict['pocket']:
+                #         if (info['kp_rq'][:6]) == (jsons['date'][:4]+jsons['date'][5:7]):
+                #             if info['state']==1:
+                #                 info.pop("data")
+                #             result_list.append(kindsof(info))
             result_dict['pocket'] = result_list
             result_dict['cmd']=208
             self.send(text_data=json.dumps(result_dict))
@@ -241,7 +241,7 @@ class ChatConsumer(WebsocketConsumer):
                 for item in final['pocket']:
                     if item.get('data')!=None:
                         item.pop('data')
-                    kindsof(item)
+                    item=kindsof(item)
                 final["cmd"] = 208
                 self.send(text_data=json.dumps(final))
         #更换验证码
