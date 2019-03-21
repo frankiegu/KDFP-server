@@ -1,6 +1,8 @@
 from selenium import webdriver
 from urllib.request import urlretrieve
 import urllib
+import time
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
@@ -11,14 +13,16 @@ class invoice:
     def __init__(self):
         self.data_hold={}
     def new_browser(self):
-        self.browser = webdriver.Chrome()
-        self.browser.set_window_size(1350,750),
+        
+        # options = webdriver.FirefoxOptions()
+        # options.set_headless()
+        # options.add_argument('--disable-gpu')
+        # self.browser=webdriver.Firefox(firefox_options=options)
+        self.browser=webdriver.Chrome()
+        self.browser.set_window_size(1350,750)
         website_link="https://inv-veri.chinatax.gov.cn/"
         self.browser.get(website_link)
-        #js='window.open("https://inv-veri.chinatax.gov.cn/","","width=1350,height=750");'
-        #self.browser.execute_script(js)
-        #handles = self.browser.window_handles
-        #self.browser.switch_to_window(handles[1])
+        #self.browser.save_screenshot("2.png")
     def fill(self,xpaths,nums):
         number=self.browser.find_element_by_id(xpaths)
         number.clear()
@@ -157,13 +161,7 @@ class invoice:
                     invoice_data.getpic()
                     dict_later['error']='None'
                     dict_later['data']=invoice_data.getdata()
-                    #result_of_pic=self.browser.get_screenshot_as_file("C:\\Users\\Administrator\\Desktop\\invoice\\spider\\images\\"+dict_later['fp_dm']+dict_later['fp_hm']+".png")
-                    #self.browser.close()
-                    #print(dict_later)
-                    # if result_of_pic ==True:
-                    #     dict_later['error']='None'
-                    # else:
-                    #     dict_later['error']="screenshot fail"
+
                     return dict_later
             else:
                 #返回错误

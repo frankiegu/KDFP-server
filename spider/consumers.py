@@ -157,6 +157,7 @@ class ChatConsumer(WebsocketConsumer):
                     else:
                         self.invo=invoice.invoice()
                         self.invo.new_browser()
+                        print("浏览器")
                         temp_dict = {'object': self.invo, 'alive': True}
                         pool[self.openid] = temp_dict
                 except:

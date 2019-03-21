@@ -15,5 +15,5 @@ def kindsof(diction):
         else:
             diction['fp_zl']=city['dq']+invoice_type[diction["fp_qz"]]
     diction['kp_rq']=diction['kp_rq'][:4]+"年"+diction['kp_rq'][4:6]+"月"+diction['kp_rq'][-2:]+"日"
-    diction['kp_je']="¥"+diction['kp_je']
+    diction['kp_je']=diction['kp_je']+"¥"
     return diction
