@@ -51,15 +51,15 @@ class ChatConsumer(WebsocketConsumer):
                 # 通过openid创建DB类，交互数据库操作
                 self.openid = Wgetid(dict(self.scope['headers'])[b'code'].decode('utf-8'))
                 self.DB = DB(self.openid,'localhost')
-            '''
-            支付宝小程序用户
-            '''
-            if int(dict(self.scope['headers'])[b'cmd'].decode('utf-8')) ==115:
-            # 通过openid创建DB类，交互数据库操作
-                self.openid = Agetid(dict(self.scope['headers'])[b'code'].decode('utf-8'))
-                self.DB = DB(self.openid,'39.105.217.150')
-            first_using = self.DB.find_and_insert_openid(self.openid)
-            user_mode={'cmd':210,'address':self.DB.check_email(),'vip':self.DB.check_vip()}
+            # '''
+            # 支付宝小程序用户
+            # '''
+            # if int(dict(self.scope['headers'])[b'cmd'].decode('utf-8')) ==115:
+            # # 通过openid创建DB类，交互数据库操作
+            #     self.openid = Agetid(dict(self.scope['headers'])[b'code'].decode('utf-8'))
+            #     self.DB = DB(self.openid,'39.105.217.150')
+            # first_using = self.DB.find_and_insert_openid(self.openid)
+            # user_mode={'cmd':210,'address':self.DB.check_email(),'vip':self.DB.check_vip()}
             #用户第一次访问
             if not first_using:
                 user_mode['welcome']=True
