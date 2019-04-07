@@ -58,8 +58,8 @@ class ChatConsumer(WebsocketConsumer):
             # # 通过openid创建DB类，交互数据库操作
             #     self.openid = Agetid(dict(self.scope['headers'])[b'code'].decode('utf-8'))
             #     self.DB = DB(self.openid,'39.105.217.150')
-            # first_using = self.DB.find_and_insert_openid(self.openid)
-            # user_mode={'cmd':210,'address':self.DB.check_email(),'vip':self.DB.check_vip()}
+            first_using = self.DB.find_and_insert_openid(self.openid)
+            user_mode={'cmd':210,'address':self.DB.check_email(),'vip':self.DB.check_vip()}
             #用户第一次访问
             if not first_using:
                 user_mode['welcome']=True
@@ -128,13 +128,6 @@ class ChatConsumer(WebsocketConsumer):
                     if info['state']==1:
                         info.pop("data")
                     result_list.append(kindsof(info))  
-                # else:
-                #     result_dict['pocket'] = result_list
-                #     for info in All_invoices_info_dict['pocket']:
-                #         if (info['kp_rq'][:6]) == (jsons['date'][:4]+jsons['date'][5:7]):
-                #             if info['state']==1:
-                #                 info.pop("data")
-                #             result_list.append(kindsof(info))
             result_dict['pocket'] = result_list
             result_dict['cmd']=208
             self.send(text_data=json.dumps(result_dict))

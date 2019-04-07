@@ -3215,7 +3215,7 @@ A =[{'dm':'110000','dq':'北京市'},
  {'dm':'810000','dq':'香港特别行政区'},
  {'dm':'820000','dq':'澳门特别行政区'}]
 import pymongo
-client=pymongo.MongoClient(host='39.105.217.150',port=27017)
+client=pymongo.MongoClient(host='localhost',port=27017)
 db=client.city
 citys=db.citys
 for i in A:
