@@ -234,7 +234,7 @@ class Data():
     def getpic(self):
         """生成html文件并截图"""
         self.writeinfo()
-        os.system('wkhtmltoimage.exe '+r'C:\Users\Administrator\Desktop\invoice\API\Mould'+'\\'+self.info['fpdm']+self.info['fphm']+'.html'+' C:\\Users\\Administrator\\Desktop\\invoice\\spider\\images\\'+self.info['fpdm']+self.info['fphm']+'.png')
+        os.system('im.exe '+r'C:\Users\Administrator\Desktop\invoice\API\Mould'+'\\'+self.info['fpdm']+self.info['fphm']+'.html'+' C:\\Users\\Administrator\\Desktop\\invoice\\spider\\images\\'+self.info['fpdm']+self.info['fphm']+'.png')
         size('C:\\Users\\Administrator\\Desktop\\invoice\\spider\\images\\'+self.info['fpdm']+self.info['fphm']+'.png',1100)
         os.remove(r'C:\Users\Administrator\Desktop\invoice\API\Mould'+'\\'+self.info['fpdm']+self.info['fphm']+'.html')
 

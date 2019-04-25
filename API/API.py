@@ -19,7 +19,7 @@ class Data():
     def API(self):
         """通过API查询并返回发票信息，返回字典"""
         host = 'https://fapiao.market.alicloudapi.com/invoice/query'
-        appcode = '6442e92f6d35403999670f63b04c8142'
+        appcode = '71c19cc49eb84f1f8e3883fdc1066761'
         querys = 'fpdm='+self.invoice['fp_dm']+'&fphm='+self.invoice['fp_hm']+'&kprq=' +self.invoice['kp_rq']+'&checkCode='+self.invoice['jy'][-6:] +'&noTaxAmount='+self.invoice['kp_je']
         url = host+'?'+querys
         headers = {
@@ -185,7 +185,9 @@ class Data():
         with open(r'C:\Users\Administrator\Desktop\invoice\API\Mould'+'\\'+self.invoice['fphm']+'.html', 'w', encoding='utf-8') as f:
             f.write(str(self.soup))
         #启动渲染器渲染
-        os.system('wkhtmltoimage.exe '+r'C:\Users\Administrator\Desktop\invoice\API\Mould'+'\\'+self.invoice['fphm']+'.html'+' C:\\Users\\Administrator\\Desktop\\invoice\\spider\\images\\'+self.invoice['fpdm']+self.invoice['fphm']+'.png')
+        #wkhtmltoimage
+        os.system('im.exe '+r'C:\Users\Administrator\Desktop\invoice\API\Mould'+'\\'+self.invoice['fphm']+'.html'+' C:\\Users\\Administrator\\Desktop\\invoice\\spider\\images\\'+self.invoice['fpdm']+self.invoice['fphm']+'.png')
+        print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         size('C:\\Users\\Administrator\\Desktop\\invoice\\spider\\images\\'+self.invoice['fpdm']+self.invoice['fphm']+'.png',1100)
         os.remove(r'C:\Users\Administrator\Desktop\invoice\API\Mould'+'\\'+self.invoice['fphm']+'.html')
 
